@@ -655,7 +655,7 @@ class TreeSearcher:
         
     def search_node(self, node: ParseTreeNode, identifier: str):
         if node.value == 'L':
-            # Check direct identifier in L
+           
             for child in node.children:
                 if (child.value == 'identifier' and 
                     child.token_value == identifier):
@@ -664,7 +664,7 @@ class TreeSearcher:
                     if var_type:
                         return f"{var_type}{' = ' + init_value if init_value else ''}"
             
-            # Check identifiers in comma-separated list (Z node)
+           
             z_node = next((child for child in node.children if child.value == 'Z'), None)
             if z_node:
                 current = z_node
@@ -687,7 +687,6 @@ class TreeSearcher:
                     else:
                         break
         
-        # Continue searching in children
         for child in node.children:
             result = self.search_node(child, identifier)
             if result:
@@ -710,7 +709,6 @@ class TreeSearcher:
         if node.init_value is not None:
             return node.init_value
 
-        # If not, check the parse tree structure
         current = node
         while current:
             if current.value == 'Assign':
@@ -731,7 +729,6 @@ class TreeSearcher:
     def find_identifier_definition(self, identifier: str):
         result = self.search_node(self.root, identifier)
         return result if result else "Nothing Was Found"
-# end PP
 
 
 def print_parse_table(parse_table, terminals, non_terminals):
